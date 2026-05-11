@@ -1,21 +1,13 @@
-import { Bell, ChevronDown, Search, SlidersHorizontal } from "lucide-react";
+import { Bell, Search, SlidersHorizontal } from "lucide-react";
 import avatarKwame from '../assets/avatar-kwame.svg'
 import chineseLang from '../assets/chinese-lang.svg'
 import connection from '../assets/connections.svg'
 import avatarThabo1 from '../assets/avatar-thabo1.jpg'
 import avatarThabo2 from '../assets/avatar-thabo2.jpg'
 import DealRow from "./deal-row";
+import ChartSection from "./chart";
 
 export default function DashboardPage() {
-  const chartData = [
-    { day: 'Mon', value: 56 },
-    { day: 'Tue', value: 89 },
-    { day: 'Wed', value: 44 },
-    { day: 'Thur', value: 67 },
-    { day: 'Fri', value: 59 },
-    { day: 'Sat', value: 87 },
-    { day: 'Sun', value: 100 },
-  ];
 
   return (
     <div className="px-2 pt-4 space-y-4">
@@ -101,31 +93,7 @@ export default function DashboardPage() {
       </section>
 
       {/* Chart Section */}
-      <section className="rounded-3xl bg-[#C1DAD7] p-4 text-black">
-        <div className="flex items-center gap-2 mb-3">
-          <button className="flex items-center gap-1 text-[12px] font-medium bg-[oklch(0.85_0.08_305)] rounded-full px-3 py-1">
-            More <ChevronDown className="w-3 h-3" />
-          </button>
-          <button className="text-[12px] font-medium bg-white rounded-full px-3 py-1 shadow-sm">7 days</button>
-        </div>
-        <div className="relative h-44">
-          <div className="absolute inset-y-0 left-0 flex flex-col justify-between text-[10px] text-black/60 py-1">
-            <span>100%</span>
-            <span>75%</span>
-            <span>50%</span>
-            <span>25%</span>
-          </div>
-          <div className="ml-8 h-full flex items-end justify-between gap-1.5">
-            {chartData.map((b) => (
-              <div key={b.day} className="flex-1 h-full flex flex-col items-center justify-end gap-1">
-                <span className="text-[10px] font-semibold text-black/80">{b.value}%</span>
-                <div className="w-full bg-black rounded-t-full" style={{ height: `${b.value * 0.78}%` }} />
-                <span className="text-[10px] text-black/70">{b.day}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ChartSection />
 
       {/* Tab Navigation (Directory / Smart matches / Active Leads) */}
       <nav className="flex items-center justify-between shadow-[0px_1px_2px_0px_#0000004D,_0px_4px_7px_3px_#00000026] bg-[#F1EEEE] rounded-full p-1 text-[12px] border-[0.5px] border-solid border-[#F9F9F9]">

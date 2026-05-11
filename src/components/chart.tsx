@@ -6,7 +6,6 @@ import {
   YAxis,
   CartesianGrid,
   ResponsiveContainer,
-  Tooltip,
 } from 'recharts';
 
 import chartBg from '../assets/chart-bg.svg';
@@ -37,11 +36,11 @@ const BarWithCap = (props: any) => {
 
   if (!width || !height || height < 1) return null;
 
-  const r = 9;
-  const maxShadowExtension = 26;
+  const r = width / 2;
+  const shadowExtension = 30;
 
   const chartTop: number = background ? background.y : 0;
-  const desiredShadowY = y - maxShadowExtension;
+  const desiredShadowY = y - shadowExtension;
   const shadowY = Math.max(desiredShadowY, chartTop);
   const shadowHeight = y + height - shadowY;
 
@@ -49,23 +48,27 @@ const BarWithCap = (props: any) => {
 
   return (
     <g>
+      {/* Shadow bar behind - lighter gray */}
       {showShadow && (
         <path
           d={roundedTopPath(x, shadowY, width, shadowHeight, r)}
-          fill="#1a1a1a"
-          opacity={0.28}
+          fill="#9CA3AF"
+          opacity={0.5}
         />
       )}
 
+      {/* Main dark bar */}
       <path d={roundedTopPath(x, y, width, height, r)} fill="#0E0319" />
 
+      {/* Value label inside bar */}
       <text
         x={x + width / 2}
-        y={y + 17}
+        y={y + 18}
         textAnchor="middle"
         fill="#ffffff"
-        fontSize={9}
+        fontSize={10}
         fontWeight="700"
+        fontFamily="Montserrat, sans-serif"
       >
         {value}%
       </text>
@@ -88,21 +91,24 @@ const ChartSection = () => {
     <section className="relative rounded-3xl p-4 text-black overflow-hidden">
 
       {/* Chart container */}
-      <div className="h-44 relative rounded-2xl overflow-hidden">
+      <div className="relative rounded-2xl overflow-hidden" style={{ height: 220 }}>
 
         {/* Background */}
         <img
           src={chartBg}
           alt="chart background"
-          className="absolute inset-0 w-full h-full object-cover z-0"
+          className="absolute inset-0 w-full h-full object-fill z-0"
         />
 
-        {/* Top-left pill row: More + 7 days side by side */}
-<div className="absolute left-2 z-20 flex items-center gap-2" style={{ top: -5, left: 1 }}>
-              <button className="flex items-center gap-1 text-[11px] font-bold bg-[#D1BEF5] rounded-full px-3 py-1.5">
+        {/* Top-left pill row: More + 7 days inside the SVG notch */}
+        <div
+          className="absolute z-20 flex items-center gap-3"
+          style={{ top: 8, left: 2 }}
+        >
+          <button className="flex items-center gap-1 text-[11px] font-bold bg-[#D1BEF5] rounded-full px-3.5 py-1.5 shadow-sm">
             More <ChevronDown className="w-3 h-3" />
           </button>
-          <div className="text-[11px] font-medium bg-white rounded-full px-3 py-1.5 shadow-sm">
+          <div className="text-[11px] font-semibold bg-white rounded-full px-3.5 py-1.5 shadow-sm">
             7 days
           </div>
         </div>
@@ -112,34 +118,31 @@ const ChartSection = () => {
           <ResponsiveContainer width="100%" height="100%">
             <BarChart
               data={chartData}
-              margin={{ top: 38, right: 4, left: 0, bottom: 5 }}
-              barCategoryGap="20%"
+              margin={{ top: 65, right: 10, left: 10, bottom: 5 }}
+              barCategoryGap="18%"
             >
-              <CartesianGrid stroke="#00000020" vertical={false} />
+              <CartesianGrid
+                stroke="#7a8a8550"
+                strokeDasharray="4 4"
+                vertical={false}
+              />
 
               <XAxis
                 dataKey="day"
                 axisLine={false}
                 tickLine={false}
-                tick={{ fontSize: 8, fill: '#00000070', fontWeight: '400' }}
+                tick={{ fontSize: 9, fill: '#4a5568', fontWeight: '500' }}
+                dy={4}
               />
 
               <YAxis
                 domain={[0, 100]}
                 axisLine={false}
                 tickLine={false}
-                ticks={[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]}
-                style={{ fontSize: 8, fill: '#262A27', fontWeight: '700' }}
-                width={24}
-              />
-
-              <Tooltip
-                cursor={{ fill: '#00000010' }}
-                contentStyle={{
-                  backgroundColor: '#fff',
-                  border: 'none',
-                  borderRadius: '8px',
-                }}
+                ticks={[25, 50, 75, 100]}
+                tickFormatter={(v: number) => `${v}%`}
+                tick={{ fontSize: 9, fill: '#000000', fontWeight: '700' }}
+                width={35}
               />
 
               <Bar
@@ -147,6 +150,7 @@ const ChartSection = () => {
                 shape={<BarWithCap />}
                 background={{ fill: 'transparent' }}
                 isAnimationActive
+                barSize={28}
               />
             </BarChart>
           </ResponsiveContainer>

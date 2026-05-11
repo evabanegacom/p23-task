@@ -1,4 +1,4 @@
-import { Bell, Search, SlidersHorizontal } from "lucide-react";
+import { Bell, SlidersHorizontal } from "lucide-react";
 import avatarKwame from '../assets/avatar-kwame.svg'
 import chineseLang from '../assets/chinese-lang.svg'
 import connection from '../assets/connections.svg'
@@ -6,6 +6,7 @@ import avatarThabo1 from '../assets/avatar-thabo1.jpg'
 import avatarThabo2 from '../assets/avatar-thabo2.jpg'
 import DealRow from "./deal-row";
 import ChartSection from "./chart";
+import aiSearch from '../assets/ai-search.svg';
 
 export default function DashboardPage() {
 
@@ -120,7 +121,7 @@ export default function DashboardPage() {
           </div>
           <div className="flex-1 border border-[#2DD4A8]/30 flex items-center gap-2 bg-[#D3F1E729] italic rounded-full px-3 py-2">
             <input placeholder="Search" className="flex-1 bg-transparent text-[12px] outline-none placeholder:text-white/50" />
-            <Search className="w-4 h-4 text-white/70" />
+            <img src={aiSearch} alt="AI Search" className="w-4 h-4" />
           </div>
           <button className="w-9 h-9 rounded-full bg-[oklch(0.22_0.03_275)] flex items-center justify-center">
             <SlidersHorizontal className="w-5.5 h-5.5" />

@@ -50,7 +50,7 @@ const Bottomnavigation = ({ activeTab, handleTabChange }: BottomNavigationProps)
             >
               <div
                 className={
-                  'w-[64px] h-[64px] rounded-full flex items-center justify-center shadow-lg transition-all duration-300 ' +
+                  'w-16 h-16 cursor-pointer rounded-full flex items-center justify-center shadow-lg transition-all duration-300 ' +
                   (activeTab === 'deals'
                     ? 'bg-[#2DD4A8] ring-4 ring-[#1A1028] scale-105'
                     : 'bg-white ring-4 ring-[#1A1028] group-hover:scale-105')

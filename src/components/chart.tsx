@@ -9,6 +9,8 @@ import {
   Tooltip,
 } from 'recharts';
 
+import chartBg from '../assets/chart-bg.svg';
+
 function roundedTopPath(
   x: number,
   y: number,
@@ -17,6 +19,7 @@ function roundedTopPath(
   r: number
 ): string {
   r = Math.min(r, w / 2, h);
+
   return [
     `M ${x + r} ${y}`,
     `H ${x + w - r}`,
@@ -31,15 +34,13 @@ function roundedTopPath(
 
 const BarWithCap = (props: any) => {
   const { x, y, width, height, value, background } = props;
+
   if (!width || !height || height < 1) return null;
 
   const r = 9;
   const maxShadowExtension = 26;
 
-  // The top boundary = background.y (the Y position of value 100 on the chart)
   const chartTop: number = background ? background.y : 0;
-
-  // Shadow starts at most maxShadowExtension above bar, but never above chartTop
   const desiredShadowY = y - maxShadowExtension;
   const shadowY = Math.max(desiredShadowY, chartTop);
   const shadowHeight = y + height - shadowY;
@@ -48,7 +49,6 @@ const BarWithCap = (props: any) => {
 
   return (
     <g>
-      {/* Shadow — rounded top only, clipped to chart top (100-mark) */}
       {showShadow && (
         <path
           d={roundedTopPath(x, shadowY, width, shadowHeight, r)}
@@ -57,13 +57,8 @@ const BarWithCap = (props: any) => {
         />
       )}
 
-      {/* Main bar — rounded top only */}
-      <path
-        d={roundedTopPath(x, y, width, height, r)}
-        fill="#0E0319"
-      />
+      <path d={roundedTopPath(x, y, width, height, r)} fill="#0E0319" />
 
-      {/* Value label */}
       <text
         x={x + width / 2}
         y={y + 17}
@@ -90,61 +85,72 @@ const ChartSection = () => {
   ];
 
   return (
-    <section className="relative rounded-3xl bg-[#C1DAD7] p-4 text-black overflow-hidden">
-      {/* Decorative Curve */}
-      <div className="absolute top-0 left-0 w-52 h-28 bg-[#A8D4CC] rounded-br-[80px] -z-10" />
+    <section className="relative rounded-3xl p-4 text-black overflow-hidden">
 
-      <div className="flex items-center gap-2 mb-3 relative z-10">
-        <button className="flex items-center gap-1 text-[10px] font-bold bg-[#D1BEF5] rounded-full px-3 py-1">
-          More <ChevronDown className="w-3 h-3" />
-        </button>
-        <button className="text-[12px] font-medium bg-white rounded-full px-3 py-1 shadow-sm">
-          7 days
-        </button>
-      </div>
+      {/* Chart container */}
+      <div className="h-44 relative rounded-2xl overflow-hidden">
 
-      <div className="h-44 relative z-10">
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart
-            data={chartData}
-            margin={{ top: 38, right: 4, left: 0, bottom: 5 }}
-            barCategoryGap="20%"
-          >
-            <CartesianGrid
-              stroke="#00000020"
-              vertical={false}
-              horizontal={true}
-            />
-            <XAxis
-              dataKey="day"
-              axisLine={false}
-              tickLine={false}
-              tick={{ fontSize: 8, fill: '#00000070', fontWeight: '400' }}
-            />
-            <YAxis
-              domain={[0, 100]}
-              axisLine={false}
-              tickLine={false}
-              ticks={[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]}
-              style={{ fontSize: 8, fill: '#262A27', fontWeight: '700' }}
-              width={24}
-            />
-            <Tooltip
-              cursor={{ fill: '#00000010' }}
-              contentStyle={{
-                backgroundColor: '#fff',
-                border: 'none',
-                borderRadius: '8px',
-              }}
-            />
-            <Bar
-              dataKey="value"
-              shape={<BarWithCap />}
-              background={{ fill: 'transparent' }}
-              isAnimationActive={true}
-            />
-          </BarChart>
-        </ResponsiveContainer>
+        {/* Background */}
+        <img
+          src={chartBg}
+          alt="chart background"
+          className="absolute inset-0 w-full h-full object-cover z-0"
+        />
+
+        {/* Top-left pill row: More + 7 days side by side */}
+<div className="absolute left-2 z-20 flex items-center gap-2" style={{ top: -5, left: 1 }}>
+              <button className="flex items-center gap-1 text-[11px] font-bold bg-[#D1BEF5] rounded-full px-3 py-1.5">
+            More <ChevronDown className="w-3 h-3" />
+          </button>
+          <div className="text-[11px] font-medium bg-white rounded-full px-3 py-1.5 shadow-sm">
+            7 days
+          </div>
+        </div>
+
+        {/* Chart */}
+        <div className="relative z-10 w-full h-full">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart
+              data={chartData}
+              margin={{ top: 38, right: 4, left: 0, bottom: 5 }}
+              barCategoryGap="20%"
+            >
+              <CartesianGrid stroke="#00000020" vertical={false} />
+
+              <XAxis
+                dataKey="day"
+                axisLine={false}
+                tickLine={false}
+                tick={{ fontSize: 8, fill: '#00000070', fontWeight: '400' }}
+              />
+
+              <YAxis
+                domain={[0, 100]}
+                axisLine={false}
+                tickLine={false}
+                ticks={[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]}
+                style={{ fontSize: 8, fill: '#262A27', fontWeight: '700' }}
+                width={24}
+              />
+
+              <Tooltip
+                cursor={{ fill: '#00000010' }}
+                contentStyle={{
+                  backgroundColor: '#fff',
+                  border: 'none',
+                  borderRadius: '8px',
+                }}
+              />
+
+              <Bar
+                dataKey="value"
+                shape={<BarWithCap />}
+                background={{ fill: 'transparent' }}
+                isAnimationActive
+              />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
       </div>
     </section>
   );

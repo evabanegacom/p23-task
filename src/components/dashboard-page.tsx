@@ -28,9 +28,16 @@ export default function DashboardPage() {
         </div>
 
         <div className="flex items-center gap-3">
-          <button aria-label="Notifications" className="text-white/90">
-            <Bell className="w-5 h-5" strokeWidth={1.8} />
-          </button>
+          <button
+  aria-label="Notifications"
+  className="relative text-white/90"
+>
+  <Bell className="w-5 h-5" strokeWidth={1.8} />
+
+  <span className="absolute -top-[2px] right-[2px] text-[10px] font-bold leading-none text-white">
+    Z
+  </span>
+</button>
           <div className="w-15 h-15 rounded-full overflow-hidden ring-2 bg-[#D6E264] mr-4">
             <img
               src={avatarKwame}

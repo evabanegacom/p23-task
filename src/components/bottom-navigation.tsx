@@ -1,5 +1,6 @@
-import type { TabId } from '../App';
+import type { TabId } from '../App'
 import NavBtn from './navigation-button'
+
 import chineseLang from '../assets/chinese-lang-white.svg'
 import searchList from '../assets/search-list.svg'
 import messageNav from '../assets/message-nav.svg'
@@ -7,78 +8,137 @@ import dashboardSquare from '../assets/dashboard-square.svg'
 import repeat from '../assets/repeat.svg'
 
 interface BottomNavigationProps {
-  activeTab: TabId;
-  handleTabChange: (tab: TabId) => void;
+  activeTab: TabId
+  handleTabChange: (tab: TabId) => void
 }
 
-const Bottomnavigation = ({ activeTab, handleTabChange }: BottomNavigationProps) => {
+const activeIconFilter =
+  'brightness(0) saturate(100%) invert(6%) sepia(33%) saturate(2561%) hue-rotate(252deg) brightness(81%) contrast(111%)'
+
+const inactiveIconFilter =
+  'brightness(0) saturate(100%) invert(97%) sepia(7%) saturate(336%) hue-rotate(324deg) brightness(99%) contrast(92%)'
+
+const getIconFilter = (isActive: boolean) =>
+  isActive ? activeIconFilter : inactiveIconFilter
+
+const Bottomnavigation = ({
+  activeTab,
+  handleTabChange,
+}: BottomNavigationProps) => {
   return (
-    <nav className="fixed bottom-0 left-0 right-0 flex justify-center pointer-events-none z-50">
-        <div className="relative w-full max-w-100 pointer-events-auto">
-          {/* Curved cutout background */}
-          <div className="absolute inset-x-0 bottom-0 bg-[#1A1028] rounded-t-3xl" style={{ height: '76px' }}>
-            {/* White arc behind center button */}
-            <div
-              className="absolute left-1/2 -translate-x-1/2 -top-[18px] w-[82px] h-[82px] rounded-full bg-white"
-              style={{ boxShadow: 'inset 0 4px 12px rgba(0,0,0,0.08)' }}
+    <nav className="fixed bottom-0 left-0 right-0 z-50 flex justify-center pointer-events-none">
+      <div className="relative h-[132px] w-full max-w-[400px] overflow-hidden pointer-events-auto">
+        <svg
+          className="absolute inset-x-0 bottom-0 h-[118px] w-full overflow-hidden drop-shadow-[0_-2px_10px_rgba(14,3,25,0.12)]"
+          viewBox="0 0 400 118"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M0 15C18 31 42 39 74 39H143C153 39 156 31 160 22C168 4 183 0 200 0C217 0 232 4 240 22C244 31 247 39 257 39H326C358 39 382 31 400 15V118H0V15Z"
+            fill="#0E0319"
+          />
+
+          <path
+            d="M0 15C18 31 42 39 74 39H143C153 39 156 31 160 22C168 4 183 0 200 0C217 0 232 4 240 22C244 31 247 39 257 39H326C358 39 382 31 400 15"
+            fill="none"
+            stroke="#FFFFFF"
+            strokeLinecap="round"
+            strokeWidth="9"
+          />
+        </svg>
+
+        <button
+          type="button"
+          onClick={() => handleTabChange('deals')}
+          aria-label="Deals"
+          aria-current={activeTab === 'deals' ? 'page' : undefined}
+          className="group absolute left-1/2 top-[30px] z-20 -translate-x-1/2 cursor-pointer rounded-full transition-transform duration-300 hover:scale-105 active:scale-95"
+        >
+          <span
+            className={
+              'flex h-[78px] w-[78px] items-center justify-center rounded-full border border-white/80 bg-white shadow-[0_14px_28px_rgba(0,0,0,0.32),inset_0_5px_12px_rgba(255,255,255,0.85)] transition-all duration-300 ' +
+              (activeTab === 'deals'
+                ? 'ring-4 ring-[#2DD4A8]/35'
+                : 'ring-4 ring-white/10 group-hover:ring-white/20')
+            }
+          >
+            <img
+              src={repeat}
+              alt=""
+              className="h-[43px] w-[43px]"
             />
-          </div>
+          </span>
+        </button>
 
-          {/* Nav buttons row */}
-          <div className="relative flex items-end justify-between px-5 pb-4 pt-2" style={{ height: '76px' }}>
-            <NavBtn
-              active={activeTab === 'dashboard'}
-              onClick={() => handleTabChange('dashboard')}
-              label="Dashboard"
-            >
-              <img src={dashboardSquare} alt="Dashboard" className="w-[37px] h-[37px]" style={{ filter: activeTab === 'dashboard' ? 'drop-shadow(0 0 2px #2DD4A8)' : 'grayscale(100%)' }} />
-            </NavBtn>
+        <div className="absolute inset-x-0 bottom-[18px] z-10 flex items-end justify-between px-7">
+          <NavBtn
+            active={activeTab === 'dashboard'}
+            onClick={() => handleTabChange('dashboard')}
+            label="Dashboard"
+          >
+            <img
+              src={dashboardSquare}
+              alt=""
+              className="h-[37px] w-[37px]"
+              style={{
+                filter: getIconFilter(activeTab === 'dashboard'),
+              }}
+            />
+          </NavBtn>
 
-            <NavBtn
-              active={activeTab === 'messages'}
-              onClick={() => handleTabChange('messages')}
-              label="Messages"
-            >
-                <img src={messageNav} alt="Messages" className="w-[30.83px] h-[30.83px]" style={{ filter: activeTab === 'messages' ? 'drop-shadow(0 0 2px #2DD4A8)' : 'grayscale(100%)' }} />
-            </NavBtn>
+          <NavBtn
+            active={activeTab === 'messages'}
+            onClick={() => handleTabChange('messages')}
+            label="Messages"
+          >
+            <img
+              src={messageNav}
+              alt=""
+              className="h-[31px] w-[31px]"
+              style={{
+                filter: getIconFilter(activeTab === 'messages'),
+              }}
+            />
+          </NavBtn>
 
-            {/* Center elevated button */}
-            <button
-              onClick={() => handleTabChange('deals')}
-              className="relative -mt-9 group"
-              aria-label="Deals"
-            >
-              <div
-                className={
-                  'w-16 h-16 cursor-pointer rounded-full flex items-center justify-center shadow-lg transition-all duration-300 ' +
-                  (activeTab === 'deals'
-                    ? 'bg-[#2DD4A8] ring-4 ring-[#1A1028] scale-105'
-                    : 'bg-white ring-4 ring-[#1A1028] group-hover:scale-105')
-                }
-              >
-                <img src={repeat} alt="Deals" className="w-[43px] h-[43px]" style={{ filter: activeTab === 'deals' ? 'drop-shadow(0 0 2px #2DD4A8)' : 'grayscale(100%)' }} />
-              </div>
-            </button>
+          <div
+            className="h-14 w-[78px] shrink-0"
+            aria-hidden="true"
+          />
 
-            <NavBtn
-              active={activeTab === 'search'}
-              onClick={() => handleTabChange('search')}
-              label="Search"
-            >
-                <img src={searchList} alt="Search List" className="w-[37px] h-[37px]" style={{ filter: activeTab === 'search' ? 'drop-shadow(0 0 2px #2DD4A8)' : 'grayscale(100%)' }} />
-            </NavBtn>
+          <NavBtn
+            active={activeTab === 'search'}
+            onClick={() => handleTabChange('search')}
+            label="Search"
+          >
+            <img
+              src={searchList}
+              alt=""
+              className="h-[37px] w-[37px]"
+              style={{
+                filter: getIconFilter(activeTab === 'search'),
+              }}
+            />
+          </NavBtn>
 
-            <NavBtn
-              active={activeTab === 'network'}
-              onClick={() => handleTabChange('network')}
-              label="Network"
-            >
-              <img src={chineseLang} alt="Chinese Language" className="w-[37px] h-[37px]" style={{ filter: activeTab === 'network' ? 'drop-shadow(0 0 2px #2DD4A8)' : 'grayscale(100%)' }} />
-              {/* <Users className="w-[22px] h-[22px]" strokeWidth={activeTab === 'network' ? 2.4 : 1.8} /> */}
-            </NavBtn>
-          </div>
+          <NavBtn
+            active={activeTab === 'network'}
+            onClick={() => handleTabChange('network')}
+            label="Network"
+          >
+            <img
+              src={chineseLang}
+              alt=""
+              className="h-[37px] w-[37px]"
+              style={{
+                filter: getIconFilter(activeTab === 'network'),
+              }}
+            />
+          </NavBtn>
         </div>
-      </nav>
+      </div>
+    </nav>
   )
 }
 

@@ -88,10 +88,10 @@ const ChartSection = () => {
   ];
 
   return (
-    <section className="relative rounded-3xl p-4 text-black overflow-hidden">
+    <section className="relative rounded-3xl px-0 py-4 text-black overflow-hidden">
 
       {/* Chart container */}
-      <div className="relative rounded-2xl overflow-hidden" style={{ height: 220 }}>
+      <div className="relative rounded-2xl overflow-hidden" style={{ height: 250 }}>
 
         {/* Background */}
         <img
@@ -102,23 +102,33 @@ const ChartSection = () => {
 
         {/* Top-left pill row: More + 7 days inside the SVG notch */}
         <div
-          className="absolute z-20 flex items-center gap-3"
-          style={{ top: 8, left: 2 }}
+          className="absolute z-20 flex items-center gap-5"
+          style={{ top: 12, left: 4 }}
         >
-          <button className="flex items-center gap-1 text-[11px] font-bold bg-[#D1BEF5] rounded-full px-3.5 py-1.5 shadow-sm">
+          <button className="flex items-center gap-1 text-[11px] font-bold bg-[#D1BEF5] rounded-full px-3.5 py-1.5 shadow-sm mb-[2px]">
             More <ChevronDown className="w-3 h-3" />
           </button>
-          <div className="text-[11px] font-semibold bg-white rounded-full px-3.5 py-1.5 shadow-sm">
+          <div className="text-[11px] font-semibold bg-white rounded-full px-3.5 py-1.5 shadow-sm mt-[2px]">
             7 days
           </div>
         </div>
 
         {/* Chart */}
         <div className="relative z-10 w-full h-full">
+          {/* Baseline that protrudes to the left */}
+          <div
+            className="absolute bg-[#262A27] z-20"
+            style={{
+              height: 2.5,
+              left: 4,
+              right: 10,
+              bottom: 33
+            }}
+          />
           <ResponsiveContainer width="100%" height="100%">
             <BarChart
               data={chartData}
-              margin={{ top: 65, right: 10, left: 10, bottom: 5 }}
+              margin={{ top: 85, right: 10, left: 10, bottom: 5 }}
               barCategoryGap="18%"
             >
               <CartesianGrid

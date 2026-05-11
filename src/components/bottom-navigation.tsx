@@ -1,6 +1,10 @@
 import type { TabId } from '../App';
 import NavBtn from './navigation-button'
-import { LayoutGrid, MessageSquare, RefreshCw, Users, UserSearch } from 'lucide-react'
+import chineseLang from '../assets/chinese-lang-white.svg'
+import searchList from '../assets/search-list.svg'
+import messageNav from '../assets/message-nav.svg'
+import dashboardSquare from '../assets/dashboard-square.svg'
+import repeat from '../assets/repeat.svg'
 
 interface BottomNavigationProps {
   activeTab: TabId;
@@ -27,7 +31,7 @@ const Bottomnavigation = ({ activeTab, handleTabChange }: BottomNavigationProps)
               onClick={() => handleTabChange('dashboard')}
               label="Dashboard"
             >
-              <LayoutGrid className="w-[22px] h-[22px]" strokeWidth={activeTab === 'dashboard' ? 2.4 : 1.8} />
+              <img src={dashboardSquare} alt="Dashboard" className="w-[37px] h-[37px]" style={{ filter: activeTab === 'dashboard' ? 'drop-shadow(0 0 2px #2DD4A8)' : 'grayscale(100%)' }} />
             </NavBtn>
 
             <NavBtn
@@ -35,7 +39,7 @@ const Bottomnavigation = ({ activeTab, handleTabChange }: BottomNavigationProps)
               onClick={() => handleTabChange('messages')}
               label="Messages"
             >
-              <MessageSquare className="w-[22px] h-[22px]" strokeWidth={activeTab === 'messages' ? 2.4 : 1.8} />
+                <img src={messageNav} alt="Messages" className="w-[30.83px] h-[30.83px]" style={{ filter: activeTab === 'messages' ? 'drop-shadow(0 0 2px #2DD4A8)' : 'grayscale(100%)' }} />
             </NavBtn>
 
             {/* Center elevated button */}
@@ -52,13 +56,7 @@ const Bottomnavigation = ({ activeTab, handleTabChange }: BottomNavigationProps)
                     : 'bg-white ring-4 ring-[#1A1028] group-hover:scale-105')
                 }
               >
-                <RefreshCw
-                  className={
-                    'w-7 h-7 transition-colors duration-300 ' +
-                    (activeTab === 'deals' ? 'text-white' : 'text-[#1A1028]')
-                  }
-                  strokeWidth={2.2}
-                />
+                <img src={repeat} alt="Deals" className="w-[43px] h-[43px]" style={{ filter: activeTab === 'deals' ? 'drop-shadow(0 0 2px #2DD4A8)' : 'grayscale(100%)' }} />
               </div>
             </button>
 
@@ -67,7 +65,7 @@ const Bottomnavigation = ({ activeTab, handleTabChange }: BottomNavigationProps)
               onClick={() => handleTabChange('search')}
               label="Search"
             >
-              <UserSearch className="w-[22px] h-[22px]" strokeWidth={activeTab === 'search' ? 2.4 : 1.8} />
+                <img src={searchList} alt="Search List" className="w-[37px] h-[37px]" style={{ filter: activeTab === 'search' ? 'drop-shadow(0 0 2px #2DD4A8)' : 'grayscale(100%)' }} />
             </NavBtn>
 
             <NavBtn
@@ -75,7 +73,8 @@ const Bottomnavigation = ({ activeTab, handleTabChange }: BottomNavigationProps)
               onClick={() => handleTabChange('network')}
               label="Network"
             >
-              <Users className="w-[22px] h-[22px]" strokeWidth={activeTab === 'network' ? 2.4 : 1.8} />
+              <img src={chineseLang} alt="Chinese Language" className="w-[37px] h-[37px]" style={{ filter: activeTab === 'network' ? 'drop-shadow(0 0 2px #2DD4A8)' : 'grayscale(100%)' }} />
+              {/* <Users className="w-[22px] h-[22px]" strokeWidth={activeTab === 'network' ? 2.4 : 1.8} /> */}
             </NavBtn>
           </div>
         </div>

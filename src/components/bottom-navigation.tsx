@@ -1,6 +1,6 @@
 import type { TabId } from '../App'
 import NavBtn from './navigation-button'
-
+import bgUnion from '../assets/bg-union.svg'
 import chineseLang from '../assets/chinese-lang-white.svg'
 import searchList from '../assets/search-list.svg'
 import messageNav from '../assets/message-nav.svg'
@@ -13,7 +13,7 @@ interface BottomNavigationProps {
 }
 
 const activeIconFilter =
-  'brightness(0) saturate(100%) invert(6%) sepia(33%) saturate(2561%) hue-rotate(252deg) brightness(81%) contrast(111%)'
+  'brightness(0) saturate(100%) invert(6%) sepia(33%) saturate(2561%) hue-rotate(252deg) brightness(10%) contrast(111%)'
 
 const inactiveIconFilter =
   'brightness(0) saturate(100%) invert(97%) sepia(7%) saturate(336%) hue-rotate(324deg) brightness(99%) contrast(92%)'
@@ -28,50 +28,36 @@ const Bottomnavigation = ({
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 flex justify-center pointer-events-none">
       <div className="relative h-[132px] w-full max-w-[400px] overflow-hidden pointer-events-auto">
-        <svg
-          className="absolute inset-x-0 bottom-0 h-[118px] w-full overflow-hidden drop-shadow-[0_-2px_10px_rgba(14,3,25,0.12)]"
-          viewBox="0 0 400 118"
-          preserveAspectRatio="none"
-          aria-hidden="true"
-        >
-          <path
-            d="M0 15C18 31 42 39 74 39H143C153 39 156 31 160 22C168 4 183 0 200 0C217 0 232 4 240 22C244 31 247 39 257 39H326C358 39 382 31 400 15V118H0V15Z"
-            fill="#0E0319"
-          />
-
-          <path
-            d="M0 15C18 31 42 39 74 39H143C153 39 156 31 160 22C168 4 183 0 200 0C217 0 232 4 240 22C244 31 247 39 257 39H326C358 39 382 31 400 15"
-            fill="none"
-            stroke="#FFFFFF"
-            strokeLinecap="round"
-            strokeWidth="9"
-          />
-        </svg>
+        <img
+          src={bgUnion}
+          alt=""
+          className="absolute inset-x-0 bottom-0 h-[118px] w-full object-cover pointer-events-none"
+        />
 
         <button
           type="button"
           onClick={() => handleTabChange('deals')}
           aria-label="Deals"
           aria-current={activeTab === 'deals' ? 'page' : undefined}
-          className="group absolute left-1/2 top-[30px] z-20 -translate-x-1/2 cursor-pointer rounded-full transition-transform duration-300 hover:scale-105 active:scale-95"
+          className="group absolute left-[49.5%] top-[45px] z-20 -translate-x-1/2 cursor-pointer rounded-full transition-transform duration-300 hover:scale-105 active:scale-95"
         >
           <span
             className={
-              'flex h-[78px] w-[78px] items-center justify-center rounded-full border border-white/80 bg-white shadow-[0_14px_28px_rgba(0,0,0,0.32),inset_0_5px_12px_rgba(255,255,255,0.85)] transition-all duration-300 ' +
+              'flex h-[64px] w-[64px] items-center justify-center rounded-full border border-white/80 bg-white shadow-[0_8px_16px_rgba(0,0,0,0.25),inset_0_4px_10px_rgba(255,255,255,0.9)] transition-all duration-300 ' +
               (activeTab === 'deals'
-                ? 'ring-4 ring-[#2DD4A8]/35'
+                ? 'ring-4 ring-[#2DD4A8]/40'
                 : 'ring-4 ring-white/10 group-hover:ring-white/20')
             }
           >
             <img
               src={repeat}
               alt=""
-              className="h-[43px] w-[43px]"
+              className="h-[34px] w-[34px]"
             />
           </span>
         </button>
 
-        <div className="absolute inset-x-0 bottom-[18px] z-10 flex items-end justify-between px-7">
+        <div className="absolute inset-x-0 bottom-[10px] z-10 flex items-end justify-between px-7">
           <NavBtn
             active={activeTab === 'dashboard'}
             onClick={() => handleTabChange('dashboard')}

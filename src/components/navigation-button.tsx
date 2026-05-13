@@ -16,7 +16,7 @@ export default function NavBtn({
       className={
         'w-12 h-12 rounded-2xl cursor-pointer flex items-center justify-center transition-all duration-300 relative ' +
         (active
-          ? 'bg-[#2DD4A8] text-[#0E0319] shadow-[0_0_16px_rgba(45,212,168,0.35)] scale-110'
+          ? 'bg-[#2DD4A8] rounded-full text-[#0A0414] shadow-[0_4px_16px_rgba(45,212,168,0.4)] scale-110'
           : 'text-white/70 hover:text-white/90 active:scale-95')
       }
     >
